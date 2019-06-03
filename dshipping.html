@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+</head>
+    
+    <script>
+    $(document).ready(function(data){
+        
+    load_checkout_page_data();
+        
+    
+        
+    function load_checkout_page_data() {
+                    $.ajax({
+                        url: "model/fetchcheckoutpage.php",
+                        method: "POST",
+                        dataType: "json",
+                        success: function(data) {
+                            $('#customer_2').html(data.cart_details);
+                            $('.customer_2_ss_line:nth-of-type(1) p:nth-of-type(2) span:nth-of-type(2)').text(data.total_price);
+                            
+                            $('#customer_2_subtotal_shipping .customer_2_ss_line:nth-of-type(2) p:nth-of-type(2) span:nth-of-type(2)').text(data.shipping_price);
+                            
+                            $('#customer_2_total p:nth-of-type(2) span:nth-of-type(2) span:nth-of-type(2)').text(data.total_price_shipping);
+
+                            //$('#customer_2_total p:nth-of-type(2) span:nth-of-type(2)').text(data.total_price);
+
+                            /*$('#item_page_checkout #item_page_instructions_map #item_page_map_shipping #item_page_map_shipping_total #item_page_map_subtotal_shipping #item_page_subtotal').text(data.total_price);*/
+                            // actually subtotal price
+                            /*$('#cart_items_each_total').html(data.cart_details);*/
+                        }
+                    });
+                }
+        $('#country').on('change', function(){
+                        var action = 'clear_shipping';
+                        $.ajax({
+                            url: 'model/action.php',
+                            method: 'POST',
+                            data: {
+                                action: action,
+                            },
+                            success: function(data){
+                                /*$('#customer_2_subtotal_shipping .customer_2_ss_line:nth-of-type(2) p:nth-of-type(2)').text('--');*/
+                                load_checkout_page_data();
+                                
+                            }
+                        });
+                    });
+        });
+            
+    
+    </script>
+
+
+<body>
+
+    <div id="customer_information">
+        
+    
+        <div id="customer_1">
+        <h1>ET SPORK</h1>
+        <div id="customer_1_nav">
+        <nav>
+        <ul>
+        <li class="1_link">Cart</li>
+        <li class="1_arrow">></li>
+            <li class="1_link">Customer information</li>
+        <li class="1_arrow">></li>
+            <li class="1_link">Shipping method</li>
+        <li class="1_arrow">></li>
+            <li class="1_link">Payment method</li>
+        </ul>
+        </nav>    
+        </div>
+            
+        <div id="customer_1_changes">
+            <div class="customer_1_changes_line">
+                <div class="customer_1_changes_cell">Contact</div>
+                <div class="customer_1_changes_cell">rduong89@gmail.com</div>
+                <div class="customer_1_changes_cell">Change</div>
+            </div>   
+            <hr>
+            <div class="customer_1_changes_line">
+                <div class="customer_1_changes_cell">Ship to</div>
+                <div class="customer_1_changes_cell">8729 Koto Drive, Elk Grove 95624</div>
+                <div class="customer_1_changes_cell">Change</div>
+            </div> 
+            <hr>
+            <div class="customer_1_changes_line">
+                <div class="customer_1_changes_cell">Method</div>
+                <div class="customer_1_changes_cell">Asia - Over $20 Order - Reduced Standard Shipping - $3.00</div>
+                <div class="customer_1_changes_cell">Change</div>
+            </div>  
+        </div>
+            
+            <div id="customer_1_shipping_method">
+            <p>Shipping method</p>
+            <div id="customer_1_shipping_method_container">
+                <p class="customer_1_shipping_method_line"><span><input type="radio"></span><span>Standard Shipping</span><span>$2.99</span></p>
+                <p class="customer_1_shipping_method_line"></p>
+            </div>
+            </div>
+            
+            <div id="customer_1_return_continue">
+            <div id="return"><div id="return_arrow">></div> Return to customer information</div>
+            <div id="continue"><button>Continue to payment method</button></div>
+        </div> 
+        
+        </div>
+        
+        <div id="customer_2">
+            
+        </div>
+        
+    </div>
+    
+    
+    </body>
+</html>

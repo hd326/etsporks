@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+    $(window).on('load', function(){
+                var country = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .country').value;
+                var email_phone = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .email_phone').value;
+                var first_name = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .first_name').value;
+                var last_name = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .last_name').value;
+                var company = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .company').value;
+                var address = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .address').value;
+                var apt = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .apt').value;
+                var city = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .city').value;
+                var state = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .state').value;
+                var zip = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .zip').value;
+                var phone_number = document.querySelector('#customer_1_changes .customer_1_changes_line .customer_1_changes_cell .phone_number').value; 
+                alert(email_phone + '<br>' + country + '<br>' + first_name + '<br>' + last_name + '<br>' + company + '<br>' + address + '<br>' + apt + '<br>' + city + '<br>' + state + '<br>' + zip + '<br>' + phone_number);
+                //r_duong89@yahoo.com<br>United States<br>Richard<br>Duong<br><br>8729 Koto Drive<br><br>Elk Grove<br>CA<br>95624<br>9167044061
+    });
+    </script>
+    <script>
+            paypal.Button.render({
+                    // Configure environment
+                    env: 'sandbox',
+                    client: {
+                        sandbox: 'demo_sandbox_client_id',
+                        production: 'demo_production_client_id'
+                    },
+                    // Customize button (optional)
+                    locale: 'en_US',
+                    style: {
+                        size: 'small',
+                        color: 'gold',
+                        shape: 'pill',
+                    },
+                    // Set up a payment
+                    payment: function(data, actions) {
+        
+
+                        return actions.payment.create({
+                            
+                            transactions: [{
+                                amount: {
+                                    total: '30.11',
+                                    currency: 'USD',
+                                    details: {
+                                        subtotal: '30.00',
+                                        tax: '0.07',
+                                        shipping: '0.03',
+                                        handling_fee: '1.00',
+                                        shipping_discount: '-1.00',
+                                        insurance: '0.01'
+                                    }
+                                },
+                                description: 'The payment transaction description.',
+                                custom: '90048630024435',
+                                //invoice_number: '12345', Insert a unique invoice number
+                                payment_options: {
+                                    allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
+                                },
+                                soft_descriptor: 'ECHI5786786',
+                                item_list: {
+                                    
+                                    shipping_address: {
+                                        recipient_name: 'Brian Robertson',
+                                        line1: '4th Floor',
+                                        line2: 'Unit #34',
+                                        city: 'San Jose',
+                                        country_code: 'US',
+                                        postal_code: '95131',
+                                        phone: '011862212345678',
+                                        state: 'CA'
+                                    }
+                                    
+                                }
+                            }],
+                            note_to_payer: 'Contact us for any questions on your order.'
+                        });
+                    },
+                    // Execute the payment
+                    onAuthorize: function(data, actions) {
+                        return actions.payment.execute().then(function() {
+                            // Show a confirmation message to the buyer
+                            window.alert('Thank you for your purchase!');
+                        });
+                    }
+                }, '#paypal-button');
+    </script>
+    <title></title>
+</head>
+
+<body>
+
+    <div id="customer_information">
+
+
+        <div id="customer_1">
+            <h1>ET SPORK</h1>
+            <div id="customer_1_nav">
+                <nav>
+                    <ul>
+                        <li class="1_link">Cart</li>
+                        <li class="1_arrow">></li>
+                        <li class="1_link">Customer information</li>
+                        <li class="1_arrow">></li>
+                        <li class="1_link">Shipping method</li>
+                        <li class="1_arrow">></li>
+                        <li class="1_link">Payment method</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="customer_1_changes">
+                <div class="customer_1_changes_line">
+                    <div class="customer_1_changes_cell">Contact</div>
+                    <div class="customer_1_changes_cell">rduong89@gmail.com</div>
+                    <div class="customer_1_changes_cell">Change</div>
+                </div>
+                <hr>
+                <div class="customer_1_changes_line">
+                    <div class="customer_1_changes_cell">Ship to</div>
+                    <div class="customer_1_changes_cell">8729 Koto Drive, Elk Grove 95624</div>
+                    <div class="customer_1_changes_cell">Change</div>
+                </div>
+                <hr>
+                <div class="customer_1_changes_line">
+                    <div class="customer_1_changes_cell">Method</div>
+                    <div class="customer_1_changes_cell">Asia - Over $20 Order - Reduced Standard Shipping - $3.00</div>
+                    <div class="customer_1_changes_cell">Change</div>
+                </div>
+            </div>
+
+            <!-- paypal payment testing -->
+
+
+            <div id="paypal-button"></div>
+            
+            <!-- paypal payment testing -->
+        </div>
+
+        <div id="customer_2">
+            <div class="customer_2_item_line">
+
+                <div class="customer_2_item_line_cell"><img src="image/get_et_spork2.jpg"><span class="customer_2_line_cell_amt">1</span></div>
+
+                <div class="customer_2_item_line_cell">
+                    <p>ET Spork</p>
+                    <p>Mirror</p>
+                </div>
+
+                <div class="customer_2_item_line_cell">
+                    <p>$12.95</p>
+                </div>
+
+            </div>
+            <div class="customer_2_item_line">
+
+                <div class="customer_2_item_line_cell"><img src="image/get_et_spork2.jpg"><span class="customer_2_line_cell_amt">1</span></div>
+
+                <div class="customer_2_item_line_cell">
+                    <p>ET Spork</p>
+                    <p>Mirror</p>
+                </div>
+
+                <div class="customer_2_item_line_cell">
+                    <p>$12.95</p>
+                </div>
+
+            </div>
+            <hr>
+
+            <div id="customer_2_subtotal_shipping">
+                <div class="customer_2_ss_line">
+                    <p>Subtotal</p>
+                    <p>$25.90</p>
+                </div>
+                <div class="customer_2_ss_line">
+                    <p>Shipping</p>
+                    <p>$2.99</p>
+                </div>
+            </div>
+            <hr>
+
+            <div id="customer_2_total">
+                <p>Total</p>
+                <p><span>USD</span><span>$28.89</span></p>
+            </div>
+
+            <hr>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
